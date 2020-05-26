@@ -7,7 +7,10 @@ import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestTemplate;
 
 import com.couchbase.client.core.error.DocumentExistsException;
 import com.couchbase.client.java.Bucket;
@@ -49,14 +52,16 @@ public class BookstoreRepository {
   @Qualifier("defaultCollection")
   protected Collection defaultCollection;
 
-  public String getBooks(String id) {
-    return defaultCollection.get(id).toString();
+ 
+
+  public String getBookByKey(String id,String key) {
+    return defaultCollection.lookupIn(id, Arrays.asList(LookupInSpec.get(key))).contentAs(0, String.class);
   }
 
   public JsonObject addBook(String id, JsonObject bookInfo) {
 
     try {
-      bookInfo.put(COUNT_KEY, 0);
+      bookInfo.put(COUNT_KEY, 1);
       defaultCollection.insert(id, bookInfo);
     } catch (DocumentExistsException e) {
       int count = defaultCollection
@@ -66,19 +71,19 @@ public class BookstoreRepository {
     }
     return bookInfo.put("id", id);
   }
-  
+
   public JsonObject buyBook(String id) {
-    if(defaultCollection.exists(id).exists()) {
+    if (defaultCollection.exists(id).exists()) {
       int count = defaultCollection
           .mutateIn(id, Collections.singletonList(decrement(COUNT_KEY, 1)))
           .contentAs(0, Integer.class);
-      if(count  == 0) {
-        defaultCollection
-        .mutateIn(id, Collections.singletonList(increment(COUNT_KEY, 1)));
+      if (count == 0) {
+        defaultCollection.mutateIn(id,
+            Collections.singletonList(increment(COUNT_KEY, 1)));
 
       }
     }
-    
+
     else {
       // throw exception
     }
@@ -86,4 +91,5 @@ public class BookstoreRepository {
 
   }
 
+ 
 }
