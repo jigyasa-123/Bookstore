@@ -20,4 +20,8 @@ public class BookstoreService {
     return repository.addBook(id, bookInfo).toString();
   }
 
+  
+  public String buyBook(String id) {
+    return repository.buyBook(id).toString();
+  }
 }

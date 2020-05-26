@@ -55,10 +55,8 @@ public class BookstoreRepository {
 
   public JsonObject addBook(String id, JsonObject bookInfo) {
 
-    addAuditAttributes(bookInfo);
-    bookInfo.put(COUNT_KEY, 0);
     try {
-
+      bookInfo.put(COUNT_KEY, 0);
       defaultCollection.insert(id, bookInfo);
     } catch (DocumentExistsException e) {
       int count = defaultCollection
@@ -68,13 +66,24 @@ public class BookstoreRepository {
     }
     return bookInfo.put("id", id);
   }
+  
+  public JsonObject buyBook(String id) {
+    if(defaultCollection.exists(id).exists()) {
+      int count = defaultCollection
+          .mutateIn(id, Collections.singletonList(decrement(COUNT_KEY, 1)))
+          .contentAs(0, Integer.class);
+      if(count  == 0) {
+        defaultCollection
+        .mutateIn(id, Collections.singletonList(increment(COUNT_KEY, 1)));
 
-  public void addAuditAttributes(final JsonObject document) {
-    // add created key only for new documeent
-    if (!document.containsKey(CREATED_KEY)) {
-      document.put(CREATED_KEY, OffsetDateTime.now().format(formatter));
+      }
     }
-    document.put(LAST_MODIFIED_KEY, OffsetDateTime.now().format(formatter));
+    
+    else {
+      // throw exception
+    }
+    return defaultCollection.get(id).contentAsObject();
 
   }
+
 }

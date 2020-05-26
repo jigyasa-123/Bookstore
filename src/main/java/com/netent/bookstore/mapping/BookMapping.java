@@ -1,16 +1,11 @@
 package com.netent.bookstore.mapping;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonInclude(Include.NON_NULL)
 @Getter
 @Setter
 public class BookMapping {
@@ -27,7 +22,7 @@ public class BookMapping {
   protected static final String MISSING_PRICE =
       "MISSING_PRICE:`PRICE` field is mandatory and can not be missing or null.";
 
-  @NotEmpty(message = MISSING_ISBN)
+  @NotNull(message = MISSING_ISBN)
   private String isbn;
 
   @NotNull(message = MISSING_TITLE)
