@@ -16,6 +16,12 @@ import com.google.gson.Gson;
 import com.netent.bookstore.mapping.BookMapping;
 import com.netent.bookstore.repository.BookstoreRepository;
 import com.netent.bookstore.util.CommonUtil;
+import static com.netent.bookstore.constants.CommonConstants.PRICE;
+import static com.netent.bookstore.constants.CommonConstants.TITLE;
+import static com.netent.bookstore.constants.CommonConstants.AUTHOR;
+import static com.netent.bookstore.constants.CommonConstants.BODY;
+
+
 
 @Service
 public class BookstoreService {
@@ -42,8 +48,8 @@ public class BookstoreService {
 
   public String addBook(BookMapping mapping) {
     String id = mapping.getIsbn();
-    JsonObject bookInfo = JsonObject.create().put("price", mapping.getPrice())
-        .put("author", mapping.getAuthor()).put("title", mapping.getTitle());
+    JsonObject bookInfo = JsonObject.create().put(PRICE, mapping.getPrice())
+        .put(AUTHOR, mapping.getAuthor()).put(TITLE, mapping.getTitle());
     return repository.addBook(id, bookInfo).toString();
   }
 
@@ -54,13 +60,13 @@ public class BookstoreService {
 
   public Set<String> searchMediaCoverage(String id) {
     String response = externalCallservice.callMediaCoverageAPI();
-    String title = repository.getBookByKey(id, "title");
+    String title = repository.getBookByKey(id, TITLE);
     JSONArray jsonArray = new JSONArray(response);
     CompletableFuture<Set<String>> titleMatchList =
         CompletableFuture.supplyAsync(
-            () -> commonUtil.searchInKey(jsonArray, "title", title), asyncTitleExecutor);
+            () -> commonUtil.searchInKey(jsonArray, TITLE, title), asyncTitleExecutor);
     CompletableFuture<Set<String>> bodyMatchList = CompletableFuture
-        .supplyAsync(() -> commonUtil.searchInKey(jsonArray, "body", title),asyncBodyExecutor);
+        .supplyAsync(() -> commonUtil.searchInKey(jsonArray,BODY , title),asyncBodyExecutor);
     // wait for all the async threads
     CompletableFuture.allOf(titleMatchList, bodyMatchList);
     return Stream

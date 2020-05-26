@@ -6,6 +6,8 @@ import java.util.stream.IntStream;
 
 import org.json.JSONArray;
 import org.springframework.stereotype.Component;
+import static com.netent.bookstore.constants.CommonConstants.TITLE;;
+
 
 @Component
 public class CommonUtil {
@@ -19,7 +21,7 @@ public class CommonUtil {
         .mapToObj(i -> jsonArray.getJSONObject(i))
         .forEach(x -> {
           if (x.getString(key).contains(title)) {
-            set.add(x.getString("title"));
+            set.add(x.getString(TITLE));
           }
         });
     return set;
