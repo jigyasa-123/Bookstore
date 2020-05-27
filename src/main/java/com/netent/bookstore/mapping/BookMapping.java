@@ -1,11 +1,15 @@
 package com.netent.bookstore.mapping;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Mapping class to map request
+ * @author jgarg
+ *
+ */
 @Getter
 @Setter
 public class BookMapping {

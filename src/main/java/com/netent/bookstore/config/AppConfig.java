@@ -13,6 +13,11 @@ import org.springframework.web.client.RestTemplate;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * App Config for rest teemplate and executor
+ * @author jgarg
+ *
+ */
 @Configuration
 @Getter
 @Setter
@@ -25,7 +30,6 @@ public class AppConfig {
 
   private static final int QUEUE_CAPACITY = 5;
 
-  private static final int KEEP_ALIVE_TIME = 60;
 
   @Value("${restTemp.connectionTimeout}")
   private String connnectionTimeout;

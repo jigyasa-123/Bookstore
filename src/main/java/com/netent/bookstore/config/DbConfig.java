@@ -58,18 +58,16 @@ public class DbConfig {
   /**
    * A bean to expose the   bucket instance.
    *
-   * @return Organization bucket instance
-   * @author dev
+   * @return Book bucket instance
    */
   public @Bean("BookBucket") Bucket bookBucket() {
     return getClusterInstance().bucket(couchBaseBucketName);
   }
 
   /**
-   * A bean to expose the book   bucket couchbase collection instance.
+   * A bean to expose the book  bucket couchbase collection instance.
    *
    * @return Default Collection Instance
-   * @author dev
    */
   public @Bean("defaultCollection") Collection defaultCollection() {
     return bookBucket().defaultCollection();
