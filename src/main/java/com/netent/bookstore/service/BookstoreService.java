@@ -20,6 +20,8 @@ import static com.netent.bookstore.constants.CommonConstants.PRICE;
 import static com.netent.bookstore.constants.CommonConstants.TITLE;
 import static com.netent.bookstore.constants.CommonConstants.AUTHOR;
 import static com.netent.bookstore.constants.CommonConstants.BODY;
+import static com.netent.bookstore.constants.CommonConstants.ISBN;
+
 
 
 
@@ -48,19 +50,19 @@ public class BookstoreService {
 
   public String addBook(BookMapping mapping) {
     String id = mapping.getIsbn();
-    JsonObject bookInfo = JsonObject.create().put(PRICE, mapping.getPrice())
+    JsonObject bookInfo = JsonObject.create().put(ISBN, mapping.getIsbn()).put(PRICE, mapping.getPrice())
         .put(AUTHOR, mapping.getAuthor()).put(TITLE, mapping.getTitle());
     return repository.addBook(id, bookInfo).toString();
   }
 
-  public String buyBook(String id) {
-    return repository.buyBook(id).toString();
+  public String buyBook(String isbn) {
+    return repository.buyBook(isbn).toString();
 
   }
 
-  public Set<String> searchMediaCoverage(String id) {
+  public Set<String> searchMediaCoverage(String isbn) {
     String response = externalCallservice.callMediaCoverageAPI();
-    String title = repository.getBookByKey(id, TITLE);
+    String title = repository.getBookKey(isbn, TITLE);
     JSONArray jsonArray = new JSONArray(response);
     CompletableFuture<Set<String>> titleMatchList =
         CompletableFuture.supplyAsync(
@@ -73,6 +75,18 @@ public class BookstoreService {
         .concat(titleMatchList.join().stream(), bodyMatchList.join().stream())
         .collect(Collectors.toSet());
 
+  }
+  
+  public String getBookById(String isbn) {
+    return repository.getBookById(isbn).toString();
+  }
+  
+  public String getBookByTitle(String title) {
+   return repository.getBookByTitle(title).toString();
+  }
+  
+  public String getBookByAuthor(String author) {
+    return repository.getBookByAuthor(author).toString();
   }
 
 
