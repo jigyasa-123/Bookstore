@@ -24,8 +24,8 @@ import com.netent.bookstore.service.BookstoreService;
  *
  */
 @RestController
-@Validated
 @RequestMapping("/books")
+@Validated
 public class BookstoreController {
 
   @Autowired
@@ -38,7 +38,7 @@ public class BookstoreController {
    */
   @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> addBook(
-    @Valid @RequestBody BookMapping mapping) {
+     @Valid @RequestBody BookMapping mapping) {
     try {
       return new ResponseEntity<>(service.addBook(mapping), HttpStatus.CREATED);
     } catch (Exception e) {

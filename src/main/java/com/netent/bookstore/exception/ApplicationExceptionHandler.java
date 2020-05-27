@@ -4,6 +4,8 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -40,8 +42,14 @@ public class ApplicationExceptionHandler {
     return new ResponseEntity<>(new ErrorResponseTemplate(ex.getErrorMsg(),ex.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
 
   }
-  @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity<ErrorResponseTemplate> constraintviilationException(ConstraintViolationException ex ){
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ErrorResponseTemplate> argumentNotValid(MethodArgumentNotValidException ex ){
+    return new ResponseEntity<>(new ErrorResponseTemplate("Bad Request",ex.getMessage()),HttpStatus.BAD_REQUEST);
+
+  }
+  
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResponseEntity<ErrorResponseTemplate> missingParameter(MissingServletRequestParameterException ex ){
     return new ResponseEntity<>(new ErrorResponseTemplate("Bad Request",ex.getMessage()),HttpStatus.BAD_REQUEST);
 
   }

@@ -2,6 +2,8 @@ package com.netent.bookstore.mapping;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,7 @@ import lombok.Setter;
  * @author jgarg
  *
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 public class BookMapping {
