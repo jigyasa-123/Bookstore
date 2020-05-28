@@ -27,12 +27,15 @@ public class CommonUtil {
     String title) {
     Set<String> set = new HashSet<>();
     IntStream.range(0, jsonArray.length())
-        .mapToObj(i -> jsonArray.getJSONObject(i)).forEach(x -> {
+        .mapToObj(i -> jsonArray.getJSONObject(i))
+        .forEach(x -> {
           if (x.getString(key).contains(title)) {
             set.add(x.getString(TITLE));
           }
         });
     return set;
   }
+  
+
 
 }

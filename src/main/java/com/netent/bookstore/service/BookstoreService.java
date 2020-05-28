@@ -104,6 +104,8 @@ public class BookstoreService {
     // wait for all the async threads
     CompletableFuture.allOf(titleMatchList, bodyMatchList);
     
+    titleMatchList.join().stream();
+    
     //combine sets 
     return Stream
         .concat(titleMatchList.join().stream(), bodyMatchList.join().stream())
