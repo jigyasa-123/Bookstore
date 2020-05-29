@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.couchbase.client.java.json.JsonObject;
 import com.netent.bookstore.mapping.BookMapping;
-import com.netent.bookstore.repository.BookstoreRepositoryTest;
+import com.netent.bookstore.repository.BookstoreRepository;
 import com.netent.bookstore.util.CommonUtil;
 
 
@@ -34,7 +34,7 @@ import com.netent.bookstore.util.CommonUtil;
 public class BookstoreService {
 
   @Autowired
-  private BookstoreRepositoryTest repository;
+  private BookstoreRepository repository;
 
   @Autowired
   private ExternalCallService externalCallservice;
