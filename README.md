@@ -39,7 +39,8 @@ Clone Git Repository
  ```
    
 
-Setup Couchbase Database with cluster , book bucket and primary index
+Setup Couchbase Database with cluster , book bucket and primary index. 
+
 
 ```sh
  $ cd couchbase
@@ -47,10 +48,13 @@ Setup Couchbase Database with cluster , book bucket and primary index
  $ docker run --rm -d  -p 11207:11207/tcp -p 11210:11210/tcp -p 11211:11211/tcp -p 18091:18091/tcp -p 18092:18092/tcp -p 18093:18093/tcp -p 18094:18094/tcp -p 18095:18095/tcp -p 18096:18096/tcp -p 8091:8091/tcp -p 8092:8092/tcp -p 8093:8093/tcp -p 8094:8094/tcp -p 8095:8095/tcp -p 8096:8096/tcp --name db couchbasedb:latest
 ```
 Couchbase server is up and running at http://localhost:8091
+Cluster Credentials : username : admin password : hello.123
+Refer to couchbase/configure.sh for details
 
 Setup Spring boot App
 ```sh
 $ cd .. OR cd bookstore (root directory of project )
+$ mvn clean install
 $ docker build -t app .
 $ docker run --publish=8080:8080 --name spring-app app:latest
 ```
