@@ -21,6 +21,8 @@ Bookstore is an application that user can use to search and buy books
 * Streams
 * N1QL query - couchbase
 * key-value operations - couchbase
+* couchbase-cli tool
+* junit 5
 * Docker images
 * Rest Template
 * Mockito
@@ -115,5 +117,6 @@ curl -X GET \
 ```
 
 
-
+### Author
+Jigyasa Garg  - https://github.com/jigyasa-123/Bookstore
 
