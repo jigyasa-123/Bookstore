@@ -75,7 +75,7 @@ public class BookstoreControllerTest {
     Set<String> set = new HashSet<>();
     Mockito.when(service.searchMediaCoverage("1234")).thenReturn(set);
     assertResource(mvcSpecs, "/books/mediacoverage/1234", HttpMethod.GET,
-        toJsonFromJsonString(response));
+        toJson(set));
   }
 
   @Test

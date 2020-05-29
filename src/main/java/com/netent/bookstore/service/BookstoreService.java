@@ -94,22 +94,24 @@ public class BookstoreService {
     
     JSONArray jsonArray = new JSONArray(response);
     
-    //search in title of posts
-    CompletableFuture<Set<String>> titleMatchList =
-        CompletableFuture.supplyAsync(
-            () -> commonUtil.searchInPosts(jsonArray, TITLE, title), asyncTitleExecutor);
-    //search in body of posts
-    CompletableFuture<Set<String>> bodyMatchList = CompletableFuture
-        .supplyAsync(() -> commonUtil.searchInPosts(jsonArray,BODY , title),asyncBodyExecutor);
-    // wait for all the async threads
-    CompletableFuture.allOf(titleMatchList, bodyMatchList);
+    return commonUtil.searchInPosts(jsonArray, title);
     
-    titleMatchList.join().stream();
-    
-    //combine sets 
-    return Stream
-        .concat(titleMatchList.join().stream(), bodyMatchList.join().stream())
-        .collect(Collectors.toSet());
+//    //search in title of posts
+//    CompletableFuture<Set<String>> titleMatchList =
+//        CompletableFuture.supplyAsync(
+//            () -> commonUtil.searchInPosts(jsonArray, TITLE, title), asyncTitleExecutor);
+//    //search in body of posts
+//    CompletableFuture<Set<String>> bodyMatchList = CompletableFuture
+//        .supplyAsync(() -> commonUtil.searchInPosts(jsonArray,BODY , title),asyncBodyExecutor);
+//    // wait for all the async threads
+//    CompletableFuture.allOf(titleMatchList, bodyMatchList);
+//    
+//    titleMatchList.join().stream();
+//    
+//    //combine sets 
+//    return Stream
+//        .concat(titleMatchList.join().stream(), bodyMatchList.join().stream())
+//        .collect(Collectors.toSet());
 
   }
   

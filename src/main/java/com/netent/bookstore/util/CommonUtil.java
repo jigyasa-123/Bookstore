@@ -23,19 +23,32 @@ public class CommonUtil {
    * @param title title of book
    * @return set of titlesof posts 
    */
-  public Set<String> searchInPosts(JSONArray jsonArray, String key,
+//  public Set<String> searchInPosts(JSONArray jsonArray, String key,
+//    String title) {
+//    Set<String> set = new HashSet<>();
+//    IntStream.range(0, jsonArray.length())
+//        .mapToObj(i -> jsonArray.getJSONObject(i))
+//        .forEach(x -> {
+//          if (x.getString(key).contains(title)) {
+//            set.add(x.getString(TITLE));
+//          }
+//        });
+//    return set;
+//  }
+//  
+  
+  public Set<String> searchInPosts(JSONArray jsonArray, 
     String title) {
     Set<String> set = new HashSet<>();
     IntStream.range(0, jsonArray.length())
         .mapToObj(i -> jsonArray.getJSONObject(i))
         .forEach(x -> {
-          if (x.getString(key).contains(title)) {
+          if (x.getString("title").contains(title) || x.getString("body").contains(title)) {
             set.add(x.getString(TITLE));
           }
         });
     return set;
   }
-  
 
 
 }

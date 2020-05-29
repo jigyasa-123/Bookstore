@@ -15,12 +15,11 @@ public class CommonUtilTest {
   @Test
   public void testSearchinPosts() {
     commonUtil = new CommonUtil();
-    Set<String> expectedResult = new HashSet<>();
-    expectedResult.add("fault book");
+    Set<String>  expectedResult = new HashSet<>();
+   expectedResult.add("fault book");
     expectedResult.add("sheldon book");
-    Set<String> result =
-        commonUtil.searchInPosts(createJsonArray(), "title", "book");
-    Assertions.assertTrue(expectedResult.containsAll(result));
+    Set<String> result = commonUtil.searchInPosts(createJsonArray(), "book");
+    Assertions.assertTrue( expectedResult.containsAll(result));
   }
   
   private JSONArray createJsonArray() {

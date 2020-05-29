@@ -13,13 +13,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.couchbase.client.java.json.JsonObject;
 import com.netent.bookstore.mapping.BookMapping;
 import com.netent.bookstore.repository.BookstoreRepository;
-import com.netent.bookstore.repository.BookstoreRepositoryTest;
 import com.netent.bookstore.util.CommonUtil;
 
 @ExtendWith(MockitoExtension.class)
@@ -97,18 +95,19 @@ public class BookstoreServiceTest {
     Mockito.when(externalCallService.callMediaCoverageAPI())
         .thenReturn(getAPIResponse());
     Mockito.when(repository.getBookKey("1234", "title")).thenReturn("investor");
-    Mockito.when(commonUtil.searchInPosts(Mockito.any(), Mockito.anyString(),
+    Mockito.when(commonUtil.searchInPosts(Mockito.any(),
         Mockito.anyString())).thenReturn(set);
-    Mockito.doAnswer((InvocationOnMock invocation) -> {
-      ((Runnable) invocation.getArguments()[0]).run();
-      return null;
-    }).when(asyncTitleExecutor).execute(Mockito.any(Runnable.class));
-
-    Mockito.doAnswer((InvocationOnMock invocation) -> {
-      ((Runnable) invocation.getArguments()[0]).run();
-      return null;
-    }).when(asynBookExecutor).execute(Mockito.any(Runnable.class));
     Assertions.assertNotNull(service.searchMediaCoverage("1234"));
+
+//    Mockito.doAnswer((InvocationOnMock invocation) -> {
+//      ((Runnable) invocation.getArguments()[0]).run();
+//      return null;
+//    }).when(asyncTitleExecutor).execute(Mockito.any(Runnable.class));
+//
+//    Mockito.doAnswer((InvocationOnMock invocation) -> {
+//      ((Runnable) invocation.getArguments()[0]).run();
+//      return null;
+//    }).when(asynBookExecutor).execute(Mockito.any(Runnable.class));
   }
 
   private BookMapping getBookMapping() {
