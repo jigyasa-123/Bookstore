@@ -3,6 +3,9 @@ package com.netent.bookstore.controller;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.Matchers.equalTo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -69,7 +72,8 @@ public class BookstoreControllerTest {
   public void testSearchBookMediaCoverage()
     throws JsonSyntaxException, JsonProcessingException {
     String response = getBookInfo();
-    Mockito.when(service.searchMediaCoverage("1234")).thenReturn(response);
+    Set<String> set = new HashSet<>();
+    Mockito.when(service.searchMediaCoverage("1234")).thenReturn(set);
     assertResource(mvcSpecs, "/books/mediacoverage/1234", HttpMethod.GET,
         toJsonFromJsonString(response));
   }

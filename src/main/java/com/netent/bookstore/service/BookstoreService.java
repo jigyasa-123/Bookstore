@@ -85,7 +85,7 @@ public class BookstoreService {
    * @param isbn isbn no
    * @return set of titles
    */
-  public String searchMediaCoverage(String isbn) {
+  public Set<String> searchMediaCoverage(String isbn) {
     // get posts from external api
     String response = externalCallservice.callMediaCoverageAPI();
     
@@ -109,7 +109,7 @@ public class BookstoreService {
     //combine sets 
     return Stream
         .concat(titleMatchList.join().stream(), bodyMatchList.join().stream())
-        .collect(Collectors.toSet()).toString();
+        .collect(Collectors.toSet());
 
   }
   

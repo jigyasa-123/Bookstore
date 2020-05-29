@@ -1,5 +1,7 @@
 package com.netent.bookstore.controller;
 
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +68,7 @@ public class BookstoreController {
    * @return list of titles
    */
   @GetMapping(value = "/mediacoverage/{isbn}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<String> searchBookMediaCoverage(
+  public ResponseEntity<Set<String>> searchBookMediaCoverage(
     @PathVariable final String isbn) {
     try {
       return new ResponseEntity<>(service.searchMediaCoverage(isbn),
