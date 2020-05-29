@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.couchbase.client.java.json.JsonObject;
 import com.netent.bookstore.mapping.BookMapping;
-import com.netent.bookstore.repository.BookstoreRepository;
+import com.netent.bookstore.repository.BookstoreRepositoryTest;
 import com.netent.bookstore.util.CommonUtil;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +28,7 @@ public class BookstoreServiceTest {
   private BookstoreService service;
 
   @Mock
-  private BookstoreRepository repository;
+  private BookstoreRepositoryTest repository;
 
   @Mock
   private CommonUtil commonUtil;
